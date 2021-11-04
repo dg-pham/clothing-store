@@ -72,13 +72,13 @@ def payments(request):
                 product.stock -= item.quantity
                 product.save()
 
-            # Xóa hết cart_item
+            # delete cart
             CartItem.objects.filter(user=request.user).delete()
 
-            # Gửi thư cảm ơn
+            # send order detail
             sendEmail(request=request, order=order)
 
-            # Phản hồi lại ajax
+            # ajax response
             data = {
                 'order_number': order.order_number,
                 'transID': payment.payment_id,
