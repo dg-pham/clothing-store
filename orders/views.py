@@ -32,9 +32,9 @@ def payments(request):
             payment_method = data['payment_method']
             status = data['status']
 
-            # Lấy bản ghi order
+            # get order
             order = Order.objects.get(user=request.user, is_ordered=False, order_number=order_id)
-            # Tạo 1 bản ghi payment
+            # get payment
             payment = Payment(
                 user=request.user,
                 payment_id=trans_id,
@@ -48,7 +48,7 @@ def payments(request):
             order.is_ordered = True
             order.save()
 
-            # Chuyển hết cart_item thành order_product
+            # cart_item -> order_product
             cart_items = CartItem.objects.filter(user=request.user)
             for item in cart_items:
                 order_product = OrderProduct()
